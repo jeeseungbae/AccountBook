@@ -1,0 +1,1 @@
+insert into customer(email, password) values('sljdfs@naver.com','elf245754')

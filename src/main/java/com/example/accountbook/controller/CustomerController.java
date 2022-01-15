@@ -1,5 +1,6 @@
 package com.example.accountbook.controller;
 
+import com.example.accountbook.domain.Account;
 import com.example.accountbook.domain.Customer;
 import com.example.accountbook.service.CustomerService;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/customer")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -23,7 +24,7 @@ public class CustomerController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<String> signUp(@Valid @RequestBody Customer customer){
-        return ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity.status(HttpStatus.CREATED)
                 .body(customerService.signUp(customer));
     }
 }
