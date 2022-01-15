@@ -21,7 +21,7 @@ class CustomerControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("성공 : 회원가입")
+    @DisplayName("성공 : 요청 2xx 응답")
     public void SuccessSignUp() throws Exception {
         mockMvc.perform(post("/project/sign-up")
                     .contentType("application/json")
@@ -33,7 +33,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("실패 : 비밀번호 없음")
+    @DisplayName("실패 : 4xx 비밀번호 없음")
     public void failSignUpPasswordEmpty() throws Exception {
         mockMvc.perform(post("/project/sign-up")
                 .contentType("application/json")
@@ -45,7 +45,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("실패 : 비밀번호 개수 5개")
+    @DisplayName("실패 : 4xx 비밀번호 개수 5개")
     public void failSignUpPasswordSize() throws Exception {
         mockMvc.perform(post("/project/sign-up")
                 .contentType("application/json")
@@ -57,7 +57,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("실패 : 회원가입 - 이메일 없음")
+    @DisplayName("실패 : 4xx 회원가입 - 이메일 없음")
     public void failSignUpEmailEmpty() throws Exception {
         mockMvc.perform(post("/project/sign-up")
                 .contentType("application/json")
@@ -69,7 +69,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("실패 : 회원가입 - @ 없음")
+    @DisplayName("실패 : 4xx 회원가입 - @ 없음")
     public void failSignUpEmailStructure() throws Exception {
         mockMvc.perform(post("/project/sign-up")
                 .contentType("application/json")
