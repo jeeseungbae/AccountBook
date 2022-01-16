@@ -1,6 +1,7 @@
 package com.example.accountbook.repository.JdbcTemplate;
 
 import com.example.accountbook.domain.Account;
+import com.example.accountbook.domain.dto.AccountDto;
 import com.example.accountbook.repository.AccountRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -8,6 +9,7 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSourceExtensionsKt;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.example.accountbook.util.DateTimeUtils.dateTimeOf;
@@ -48,6 +50,20 @@ public class AccountRepositoryImpl implements AccountRepository {
         }
         return Optional.empty();
     }
+
+    @Override
+    public List<AccountDto> findAll(Long customerId) {
+        String sql = "select * from account where customer_id = ? order by created_at desc";
+        List<AccountDto> resources = jdbcTemplate.query(sql,accountDtoRowMapper,customerId);
+        return resources;
+    }
+
+    static RowMapper<AccountDto> accountDtoRowMapper = (rs, rowNum) ->
+            AccountDto.builder()
+                    .customerId(rs.getLong("customer_id"))
+                    .payMoney(rs.getLong("pay_money"))
+                    .memo(rs.getString("memo"))
+                    .build();
 
     static RowMapper<Account> accountRowMapper = (rs, rowNum) ->
             Account.builder()

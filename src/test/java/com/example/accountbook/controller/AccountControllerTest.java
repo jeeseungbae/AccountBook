@@ -32,7 +32,7 @@ class AccountControllerTest {
     }
 
     @Test
-    @DisplayName("성공 : 수정 요청 2xx 응답")
+    @DisplayName("성공 : 데이터 수정 요청 2xx 응답")
     public void successModify() throws Exception {
         mockMvc.perform(patch("/accounts")
                 .contentType("application/json;charset=UTF-8")
@@ -44,7 +44,7 @@ class AccountControllerTest {
     }
 
     @Test
-    @DisplayName("성공 : 삭제 요청 2xx 응답")
+    @DisplayName("성공 : 데이터 삭제 요청 2xx 응답")
     public void successDelete() throws Exception {
         mockMvc.perform(delete("/accounts/2")
                 .contentType("application/json;charset=UTF-8"))
@@ -52,5 +52,27 @@ class AccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(handler().handlerType(AccountController.class))
                 .andExpect(handler().methodName("delete"));
+    }
+
+    @Test
+    @DisplayName("성공 : 자세한 정보 요청 2xx 응답")
+    public void successFindById() throws Exception {
+        mockMvc.perform(get("/accounts/2")
+                .contentType("application/json;charset=UTF-8"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(handler().handlerType(AccountController.class))
+                .andExpect(handler().methodName("findById"));
+    }
+
+    @Test
+    @DisplayName("성공 : 가계부 리스트 요청 2xx 응답")
+    public void successFindAll() throws Exception {
+        mockMvc.perform(get("/accounts/all")
+                .contentType("application/json;charset=UTF-8"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(handler().handlerType(AccountController.class))
+                .andExpect(handler().methodName("findAll"));
     }
 }
