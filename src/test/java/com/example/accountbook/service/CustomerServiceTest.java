@@ -1,6 +1,7 @@
 package com.example.accountbook.service;
 
 import com.example.accountbook.domain.Customer;
+import com.example.accountbook.domain.dto.CustomerDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ class CustomerServiceTest {
         Customer resource = Customer.builder()
                 .email("email@naver.com")
                 .password("2jkl324")
+                .roles("ROLE_USER")
                 .build();
         customerService.signUp(resource);
 

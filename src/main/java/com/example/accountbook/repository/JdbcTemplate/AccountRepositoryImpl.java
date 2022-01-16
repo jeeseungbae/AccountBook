@@ -5,8 +5,6 @@ import com.example.accountbook.domain.dto.AccountDto;
 import com.example.accountbook.repository.AccountRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.SqlParameter;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSourceExtensionsKt;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

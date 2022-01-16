@@ -4,8 +4,9 @@ drop table if exists `customer` cascade ;
 
 create table `customer` (
     `id` bigint NOT NULL auto_increment,
-    `email` varchar(50) not null,
-    `password` varchar(50) not null,
+    `email` varchar(100) not null,
+    `password` varchar(100) not null,
+    `roles` varchar(10) not null,
     primary key (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
