@@ -1,6 +1,7 @@
 package com.example.accountbook.repository;
 
 import com.example.accountbook.domain.Account;
+import com.example.accountbook.domain.dto.AccountDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -61,6 +63,18 @@ class AccountRepositoryTest {
         account.ifPresent(select->{
             Assertions.assertEquals(id,select.getId());
         });
+    }
+
+    @Test
+    @DisplayName("성공 : 가계부 전부 조회")
+    public void successFindAll(){
+        Long id = 1L;
+        List<AccountDto> accountDtos = accountRepository.findAll(id);
+
+        for(AccountDto accountDto : accountDtos){
+            Assertions.assertEquals(accountDto.getCustomerId(),id);
+        }
+
     }
 
 }

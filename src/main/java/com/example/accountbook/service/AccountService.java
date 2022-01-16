@@ -1,11 +1,13 @@
 package com.example.accountbook.service;
 
 import com.example.accountbook.domain.Account;
+import com.example.accountbook.domain.dto.AccountDto;
 import com.example.accountbook.repository.AccountRepository;
 import com.example.accountbook.repository.DeleteAccountRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class AccountService {
@@ -16,6 +18,16 @@ public class AccountService {
     public AccountService(AccountRepository accountRepository, DeleteAccountRepository deleteAccountRepository) {
         this.accountRepository = accountRepository;
         this.deleteAccountRepository = deleteAccountRepository;
+    }
+
+    public List<AccountDto> findAll(){
+        Long customerId = 1L; // 로그인 회원 정보로 변경 수정 예정
+        return accountRepository.findAll(customerId);
+    }
+
+    public Account findById(Long id){
+        return accountRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("데이터를 찾을수 없습니다."));
     }
 
     public String create(Account account){

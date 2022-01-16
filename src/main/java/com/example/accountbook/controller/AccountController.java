@@ -1,10 +1,13 @@
 package com.example.accountbook.controller;
 
 import com.example.accountbook.domain.Account;
+import com.example.accountbook.domain.dto.AccountDto;
 import com.example.accountbook.service.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/accounts")
@@ -14,6 +17,18 @@ public class AccountController {
 
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<AccountDto>> findAll(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(accountService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Account> findById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(accountService.findById(id));
     }
 
     @PostMapping("")
