@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+import static com.example.accountbook.util.DateTimeUtils.dateTimeOf;
+
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
 
@@ -32,9 +34,18 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
+    public void delete(Long id) {
+        String sql = "delete from account where id = ?";
+        jdbcTemplate.update(sql,id);
+    }
+
+    @Override
     public Optional<Account> findById(Long id) {
-        String sql = "select * from customer where id=?";
-        Account resource = jdbcTemplate.queryForObject(sql, new Object[]{id},accountRowMapper);
+        String sql = "select * from account where id=?";
+        Account resource = jdbcTemplate.queryForObject(sql,accountRowMapper,new Object[]{id});
+        if(resource!=null){
+            return Optional.of(resource);
+        }
         return Optional.empty();
     }
 
@@ -44,7 +55,7 @@ public class AccountRepositoryImpl implements AccountRepository {
                     .customerId(rs.getLong("customer_id"))
                     .payMoney(rs.getLong("pay_money"))
                     .memo(rs.getString("memo"))
-                    .createdAt(rs.getTimestamp("created_at").toLocalDateTime())
-                    .modifiedAt(rs.getTimestamp("modified_at").toLocalDateTime())
+                    .createdAt(dateTimeOf(rs.getTimestamp("created_at")))
+                    .modifiedAt(dateTimeOf(rs.getTimestamp("modified_at")))
                     .build();
 }

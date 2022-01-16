@@ -21,7 +21,7 @@ create table `account`(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table `delete_account`(
-      `id` bigint NOT NULL auto_increment,
+      `id` bigint NOT NULL,
       `customer_id` bigint not null,
       `pay_money` bigint not null,
       `memo` varchar(1000),

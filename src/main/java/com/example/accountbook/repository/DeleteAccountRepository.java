@@ -4,13 +4,11 @@ import com.example.accountbook.domain.Account;
 
 import java.util.Optional;
 
-public interface AccountRepository {
+public interface DeleteAccountRepository {
 
     void create(Account account);
 
-    void modify(Account account);
+    Optional<Account> findById(Long id);
 
     void delete(Long id);
-
-    Optional<Account> findById(Long id);
 }
