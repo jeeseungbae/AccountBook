@@ -21,6 +21,7 @@ class CustomerRepositoryTest {
         Customer customer = Customer.builder()
                 .email("sdfsef@naver.com")
                 .password("1234532")
+                .roles("ROLE_USER")
                 .build();
         customerRepository.create(customer);
     }
@@ -31,6 +32,7 @@ class CustomerRepositoryTest {
         Customer customer = Customer.builder()
                 .email("sdfsef@naver.com")
                 .password("1234532")
+                .roles("ROLE_USER")
                 .build();
         customerRepository.create(customer);
 

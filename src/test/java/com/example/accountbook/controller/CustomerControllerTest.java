@@ -1,5 +1,7 @@
 package com.example.accountbook.controller;
 
+import com.example.accountbook.config.JwtTokenProvider;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,23 @@ class CustomerControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    private String token;
+
+    @BeforeEach
+    public void init(){
+        token = "Bearer " + jwtTokenProvider.createToken("sljdfs@naver.com","ROLE_USER");
+    }
+
     @Test
     @DisplayName("성공 : 요청 2xx 응답")
     public void SuccessSignUp() throws Exception {
         mockMvc.perform(post("/customer/sign-up")
                     .contentType("application/json")
-                    .content("{\"email\": \"sdfwf@naver.com\",\"password\": \"12321j5432\"}"))
+                    .content("{\"email\": \"sdfwf@naver.com\",\"password\": \"12dfgd5432\"}")
+                    .header("authorization",token))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(handler().handlerType(CustomerController.class))
@@ -36,7 +49,8 @@ class CustomerControllerTest {
     public void failSignUpPasswordEmpty() throws Exception {
         mockMvc.perform(post("/customer/sign-up")
                 .contentType("application/json")
-                .content("{\"email\":\"wefjkl@naver.com\",\"password\": \"\"}"))
+                .content("{\"email\":\"wefjkl@naver.com\",\"password\": \"\"}")
+                .header("authorization",token))
                 .andDo(print())
                 .andExpect(status().is4xxClientError())
                 .andExpect(handler().handlerType(CustomerController.class))
@@ -48,7 +62,8 @@ class CustomerControllerTest {
     public void failSignUpPasswordSize() throws Exception {
         mockMvc.perform(post("/customer/sign-up")
                 .contentType("application/json")
-                .content("{\"email\":\"wefjkl@naver.com\",\"password\": \"12345\"}"))
+                .content("{\"email\":\"wefjkl@naver.com\",\"password\": \"12345\"}")
+                .header("authorization",token))
                 .andDo(print())
                 .andExpect(status().is4xxClientError())
                 .andExpect(handler().handlerType(CustomerController.class))
@@ -60,7 +75,8 @@ class CustomerControllerTest {
     public void failSignUpEmailEmpty() throws Exception {
         mockMvc.perform(post("/customer/sign-up")
                 .contentType("application/json")
-                .content("{\"email\":\"\",\"password\": \"12341g234\"}"))
+                .content("{\"email\":\"\",\"password\": \"12341g234\"}")
+                .header("authorization",token))
                 .andDo(print())
                 .andExpect(status().is4xxClientError())
                 .andExpect(handler().handlerType(CustomerController.class))
@@ -72,7 +88,8 @@ class CustomerControllerTest {
     public void failSignUpEmailStructure() throws Exception {
         mockMvc.perform(post("/customer/sign-up")
                 .contentType("application/json")
-                .content("{\"email\":\"acom\",\"password\": \"12341g234\"}"))
+                .content("{\"email\":\"acom\",\"password\": \"12341g234\"}")
+                .header("authorization",token))
                 .andDo(print())
                 .andExpect(status().is4xxClientError())
                 .andExpect(handler().handlerType(CustomerController.class))

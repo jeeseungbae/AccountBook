@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,25 +27,25 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Account> findById(@PathVariable Long id){
+    public ResponseEntity<Account> findById(@Valid @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(accountService.findById(id));
     }
 
     @PostMapping("")
-    public ResponseEntity<String> create(@RequestBody Account account){
+    public ResponseEntity<String> create(@Valid @RequestBody Account account){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(accountService.create(account));
     }
 
     @PatchMapping("")
-    public ResponseEntity<String> modify(@RequestBody Account account){
+    public ResponseEntity<String> modify(@Valid @RequestBody Account account){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(accountService.modify(account));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id){
+    public ResponseEntity<String> delete(@Valid @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(accountService.delete(id));
     }
