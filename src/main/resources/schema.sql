@@ -26,7 +26,7 @@ create table `delete_account`(
       `pay_money` bigint not null,
       `memo` varchar(1000),
       `created_at` timestamp not null,
-      `modified_at` timestamp null,
+      `modified_at` timestamp,
       primary key (id),
       foreign key (customer_id) references customer(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
