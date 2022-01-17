@@ -71,14 +71,14 @@ class AccountControllerTest {
 
     @Test
     @DisplayName("성공 : 자세한 정보 요청 2xx 응답")
-    public void successFindById() throws Exception {
+    public void successFindDetailById() throws Exception {
         mockMvc.perform(get("/accounts/2")
                 .contentType("application/json;charset=UTF-8")
                 .header("authorization",token))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(handler().handlerType(AccountController.class))
-                .andExpect(handler().methodName("findById"));
+                .andExpect(handler().methodName("findDetailById"));
     }
 
     @Test

@@ -20,7 +20,7 @@ public class DeleteAccountService {
     public String delete(Long id){
         accountDataSave(id);
         deleteAccountRepository.delete(id);
-        return "";
+        return "삭제 완료";
     }
 
     private void accountDataSave(Long id){

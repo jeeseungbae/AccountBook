@@ -1,6 +1,7 @@
 package com.example.accountbook.repository.JdbcTemplate;
 
 import com.example.accountbook.domain.Account;
+import com.example.accountbook.domain.dto.AccountDetailDto;
 import com.example.accountbook.domain.dto.AccountDto;
 import com.example.accountbook.repository.AccountRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -56,9 +57,31 @@ public class AccountRepositoryImpl implements AccountRepository {
         return resources;
     }
 
+    @Override
+    public Optional<AccountDetailDto> findDetailById(Long id) {
+        String sql = "select account.id,customer.email,customer.roles,account.pay_money,account.memo,account.created_at,account.modified_at " +
+                "from customer inner join account on customer.id = account.customer_id where account.id=?";
+        AccountDetailDto resource = jdbcTemplate.queryForObject(sql,accountDetailDtoRowMapper,new Object[]{id});
+        if(resource!=null){
+            return Optional.of(resource);
+        }
+        return Optional.empty();
+    }
+
+    static RowMapper<AccountDetailDto> accountDetailDtoRowMapper = (rs, rowNum) ->
+            AccountDetailDto.builder()
+                    .id(rs.getLong("account.id"))
+                    .email(rs.getString("customer.email"))
+                    .roles(rs.getString("customer.roles"))
+                    .payMoney(rs.getLong("account.pay_money"))
+                    .memo(rs.getString("account.memo"))
+                    .createdAt(dateTimeOf(rs.getTimestamp("account.created_at")))
+                    .modifiedAt(dateTimeOf(rs.getTimestamp("account.modified_at")))
+                    .build();
+
     static RowMapper<AccountDto> accountDtoRowMapper = (rs, rowNum) ->
             AccountDto.builder()
-                    .customerId(rs.getLong("customer_id"))
+                    .id(rs.getLong("id"))
                     .payMoney(rs.getLong("pay_money"))
                     .memo(rs.getString("memo"))
                     .build();

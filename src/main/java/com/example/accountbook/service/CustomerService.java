@@ -24,7 +24,7 @@ public class CustomerService {
         isEmailExist(customer.getEmail());
         customer.setRoles("ROLE_USER");
         customerRepository.create(customer);
-        return "";
+        return "회원 가입 완료";
     }
 
     private void isEmailExist(String email){
