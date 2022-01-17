@@ -1,6 +1,7 @@
 package com.example.accountbook.repository;
 
 import com.example.accountbook.domain.Account;
+import com.example.accountbook.domain.dto.AccountDetailDto;
 import com.example.accountbook.domain.dto.AccountDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -68,11 +69,11 @@ class AccountRepositoryTest {
     @Test
     @DisplayName("성공 : 가계부 전부 조회")
     public void successFindAll(){
-        Long id = 1L;
+        Long id = 2L;
         List<AccountDto> accountDtos = accountRepository.findAll(id);
 
         for(AccountDto accountDto : accountDtos){
-            Assertions.assertEquals(accountDto.getCustomerId(),id);
+            Assertions.assertEquals(accountDto.getId(),id);
         }
 
     }

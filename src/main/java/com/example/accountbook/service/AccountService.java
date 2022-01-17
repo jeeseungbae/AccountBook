@@ -1,6 +1,7 @@
 package com.example.accountbook.service;
 
 import com.example.accountbook.domain.Account;
+import com.example.accountbook.domain.dto.AccountDetailDto;
 import com.example.accountbook.domain.dto.AccountDto;
 import com.example.accountbook.repository.AccountRepository;
 import com.example.accountbook.repository.DeleteAccountRepository;
@@ -25,27 +26,27 @@ public class AccountService {
         return accountRepository.findAll(customerId);
     }
 
-    public Account findById(Long id){
-        return accountRepository.findById(id)
+    public AccountDetailDto findDetailById(Long id){
+        return accountRepository.findDetailById(id)
                 .orElseThrow(()-> new RuntimeException("데이터를 찾을수 없습니다."));
     }
 
     public String create(Account account){
         account.setCreatedAt(LocalDateTime.now());
         accountRepository.create(account);
-        return "";
+        return "작성 완료";
     }
 
     public String modify(Account account){
         account.setModifiedAt(LocalDateTime.now());
         accountRepository.modify(account);
-        return "";
+        return "수정 완료";
     }
 
     public String delete(Long id){
         deleteDataSave(id);
         accountRepository.delete(id);
-        return "";
+        return "삭제 완료";
     }
 
     private void deleteDataSave(Long id){

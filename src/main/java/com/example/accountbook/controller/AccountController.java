@@ -1,6 +1,7 @@
 package com.example.accountbook.controller;
 
 import com.example.accountbook.domain.Account;
+import com.example.accountbook.domain.dto.AccountDetailDto;
 import com.example.accountbook.domain.dto.AccountDto;
 import com.example.accountbook.service.AccountService;
 import org.springframework.http.HttpStatus;
@@ -27,9 +28,9 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Account> findById(@Valid @PathVariable Long id){
+    public ResponseEntity<AccountDetailDto> findDetailById(@Valid @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK)
-                .body(accountService.findById(id));
+                .body(accountService.findDetailById(id));
     }
 
     @PostMapping("")
