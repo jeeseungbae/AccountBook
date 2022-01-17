@@ -22,4 +22,59 @@
 ## Architecture
 ![image](src/main/resources/static/image.png)
 
+## 데이터베이스
+### Schema : customer
+- id : 고객 식별 번호
+- email : 이메일 정보
+- password : 비밀번호
+- roles : 권한정보
 
+### Schema : account
+- id : 가계부 식별번호
+- customer_id : 고객 번호
+- pay_money : 비용
+- memo : 메모장
+- created_at : 생성시간
+- modified_at : 변경시간
+
+### Schema : delete_account
+- id : 삭제된 가계부 식별번호
+- customer_id : 고객 번호
+- pay_money : 비용
+- memo : 메모장
+- created_at : 생성시간
+- modified_at : 변경시간
+
+-> 가계부의 정보를 삭제하게 되면 자동으로 삭제된 가계부에 생성된다.
+
+## RestAPI
+- 고객 회원가입 : (POST) http:localhost:8080/customer/sign-up
+  ```{
+  "email":"sdfsd@naver.com",
+  "password" : "sfe12412"
+  }
+  ```
+- 고객 로그인 : (POST) http:localhost:8080/customer/login
+  ```{
+  "email":"sdfsd@naver.com",
+  "password" : "sfe12412"
+  }
+  ```
+- 가계부 금액,메모 삽입 : (POST) http:localhost:8080/accounts
+  ```{
+  "customerId":"1",
+  "payMoney" : "2000",
+  "memo":"콜라한잔"
+  }
+  ```
+- 가계부 금액, 메모 수정 : (PATCH) http:localhost:8080/accounts
+  ```{
+  "id":"2",
+  "payMoney" : "2000",
+  "memo":"콜라한잔"
+  }
+  ```
+- 가계부 내역 삭제 : (Delete) http:localhost:8080/accounts/{id}
+- 삭제한 내역 복구 : (Delete) http:localhost:8080/delete_accounts/{id}
+- 가계부 리스트 조회 : (GET) http:localhost:8080/accounts/all
+- 가계부 상세한 세부 내역 : (GET) http:localhost:8080/accounts/{id}
