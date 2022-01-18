@@ -6,8 +6,7 @@
 - SpringSecurity
 - JWT
 - mysql 5.7
-
-- feat에 대한 설명은 Issues에 있습니다.
+- feature에 대한 설명은 Issues에 있습니다.
 
 ## 요구사항
 - [x] 고객은 이메일과 비밀번호 입력을 통해서 회원 가입을 할 수 있습니다. <br>
